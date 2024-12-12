@@ -118,6 +118,8 @@ def calc_accuracy(labels, class_labels):
             correct += 1
     return correct / num_points
 
+# START HERE - "MAIN FUNCTION"
+
 mat, centers = fuzzy(X)
 print_matrix(mat, False)
 print_matrix(centers, True, -1)
