@@ -10,8 +10,12 @@ m = 2.0
 epsilon = 1e-4
 iter_limit = 100
 
-def print_matrix(mat, clusters_centers: bool = False):
+def print_matrix(mat, clusters_centers: bool = False, iteration: int = 0):
     if clusters_centers:
+        if iteration == -1:
+            print("\nFinal Cluster Centers:\n")
+        else:
+            print(f"Iteration: {iteration}")
         for i in range(num_clusters):
             print(f"Cluster {i} center: {mat[i]}")
         print("\n")
@@ -47,7 +51,7 @@ def cluster_center(X, mem_mat, iteration):
         cluster_y = numerator_y / denominator
         clusters.append((cluster_x, cluster_y))
     clusters.sort(key=lambda center: (center[0], center[1]))  # Sort by x, then y
-    print_matrix(clusters, True)
+    print_matrix(clusters, True, iteration)
     return clusters
 
 def calculate_distances(X, centers):
@@ -115,8 +119,8 @@ def calc_accuracy(labels, class_labels):
     return correct / num_points
 
 mat, centers = fuzzy(X)
-print(f"Final membership matrix: {mat}\n")
-print(f"Final clusters' centers: {centers}\n")
+print_matrix(mat, False)
+print_matrix(centers, True, -1)
 
 predictions = predict(X, centers)
 for i in range(num_points):
